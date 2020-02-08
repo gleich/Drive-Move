@@ -10,3 +10,5 @@ def main():
         description="Quickly move any file on your computer to a drive")
     parser.add_argument("-ld", "--listdrives",
                         action="store_true", help="List all of drives")
+    parser.add_argument("-mv", "--move",
+                        action="store_true", help="")
