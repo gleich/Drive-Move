@@ -29,7 +29,3 @@ class ListDrives {
     }
   }
 }
-
-void main() {
-  print(ListDrives.listDrives([]));
-}
