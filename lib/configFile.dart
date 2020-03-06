@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:yaml/yaml.dart';
+
 class ConfigFile {
-  static Map initConfig() {
+  static String initConfig() {
     final platform = Platform.operatingSystem;
     List<String> defaultIgnoredDrives;
     String configPath;
@@ -29,10 +31,8 @@ class ConfigFile {
     }
     // Crating and writing template to ~/.driveMove/config.yml
     configPath = configPath + '/.driveMove/config.yml';
-    print(configPath.runtimeType);
     if (FileSystemEntity.typeSync(configPath) !=
         FileSystemEntityType.notFound) {
-      print("deleting $configPath");
       File(configPath).delete(recursive: true);
     }
     File(configPath).create(recursive: true);
@@ -41,5 +41,19 @@ class ConfigFile {
     for (var line in lines) {
       sink.write('$line\n');
     }
+    return configPath;
+  }
+
+  static Future<Map> readConfig(String configPath) async {
+    var file = File(configPath);
+    await file.readAsLines().then((line) => print('line = $line'));
+    var yamlString = file.readAsStringSync();
+    var yaml = loadYaml(yamlString);
+    return yaml;
   }
 }
+
+// Future<void> main() async {
+//   var configPath = ConfigFile.initConfig();
+//   print((await ConfigFile.readConfig(configPath))['ignoredDrives']);
+// }
