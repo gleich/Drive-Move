@@ -1,6 +1,6 @@
 import 'dart:io';
 
-class ListDrives {
+class ListOptions {
   static List<String> _getMacOSDrives(List<String> ignoredDrives) {
     var validDrives = <String>[];
     var volumesContent = Directory('/Volumes').listSync();

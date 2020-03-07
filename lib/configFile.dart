@@ -2,6 +2,10 @@ import 'dart:io';
 
 import 'package:yaml/yaml.dart';
 
+const DEFAULT_IGNORED_DRIVES = <String, List<String>>{
+  'macos': ['BOOTCAMP', 'Macintosh HD', 'com.apple.TimeMachine.localsnapshots']
+};
+
 class ConfigFile {
   static String initConfig() {
     final platform = Platform.operatingSystem;
@@ -11,11 +15,7 @@ class ConfigFile {
     switch (platform) {
       case 'macos':
         {
-          defaultIgnoredDrives = <String>[
-            'BOOTCAMP',
-            'Macintosh HD',
-            'com.apple.TimeMachine.localsnapshots'
-          ];
+          defaultIgnoredDrives = DEFAULT_IGNORED_DRIVES['macos'];
           configPath =
               Directory.current.path.split('/').getRange(0, 3).join('/');
         }
